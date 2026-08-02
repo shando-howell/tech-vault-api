@@ -5,6 +5,8 @@ import { query } from '../db';
 const router = Router();
 
 router.post('/cart', async (req: Request, res: Response) => {
+    console.log("INCOMING Add to cart payload: ", req.body);
+
     // Grab the data sent form the client
     const { userId, productId, quantity = 1 } = req.body;
 
@@ -38,7 +40,7 @@ router.post('/cart', async (req: Request, res: Response) => {
 
         res.json({ success: true, message: "Cart updated successfully!"});
     } catch (error) {
-        console.error("CART API CRASH:", error);
+        console.error("POSTGRES INSERT ERROR:", error);
         res.status(500).json({ success: false, message: "Failed to update cart." });
     }
 });

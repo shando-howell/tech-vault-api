@@ -9,6 +9,7 @@ import { clerkMiddleware } from '@clerk/express';
 
 import productRoutes from './routes/products';
 import orderRoutes from './routes/orders';
+import checkoutRoutes from './routes/checkout';
 import cartRoutes from './routes/cart';
 import adminRoutes from './routes/admin';
 import uploadRoutes from './routes/upload';
@@ -35,6 +36,7 @@ app.use(clerkMiddleware());
 
 // Mount the routes
 app.use('/api', productRoutes);
+app.use('/api', checkoutRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', adminRoutes);
