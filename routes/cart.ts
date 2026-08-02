@@ -5,8 +5,6 @@ import { query } from '../db';
 const router = Router();
 
 router.post('/cart', async (req: Request, res: Response) => {
-    console.log("INCOMING Add to cart payload: ", req.body);
-
     // Grab the data sent form the client
     const { userId, productId, quantity = 1 } = req.body;
 
