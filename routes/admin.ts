@@ -114,7 +114,7 @@ router.put('/admin/products/:id', async (req: Request, res: Response) => {
     }
 });
 
-router.get('/admin/stats', requireAdminAPI, async (req: Request, res: Response) => {
+router.get('/admin/stats', async (req: Request, res: Response) => {
     try {
         // Fire all queries simultaneously for maximun performance
         const [revenueRes, ordersRes, stockRes, recentRes] = await Promise.all([
