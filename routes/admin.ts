@@ -128,7 +128,7 @@ router.get('/admin/stats', requireAdminAPI, async (req: Request, res: Response) 
             query("SELECT COUNT(*) AS low_stock FROM products WHERE stock_quantity < 5"),
 
             // 4. Recent Orders Table Data
-            query("SELECT id, created_at, customer_email, status, total_amount FROM orders ORDER BY created_at DESC LIMIT 5")
+            query("SELECT id, created_at, user_id, status, total_amount FROM orders ORDER BY created_at DESC LIMIT 5")
         ]);
 
         // Format and send the response
