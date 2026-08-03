@@ -119,7 +119,7 @@ router.get('/admin/stats', async (req: Request, res: Response) => {
         // Fire all queries simultaneously for maximun performance
         const [revenueRes, ordersRes, stockRes, recentRes] = await Promise.all([
             // 1. Total Revenue (Adjust 'COMPLETED' if the PayPal status saves differently.)
-            query("SELECT SUM(total_amount) AS total_revenue FROM orders WHERE status = 'COMPLETED'"),
+            query("SELECT SUM(total_amount) AS total_revenue FROM orders WHERE status = 'completed'"),
 
             // 2. Total Order Count
             query("SELECT COUNT(*) AS total_orders FROM orders"),
