@@ -5,7 +5,7 @@ import { query } from '../db';
 const router = Router();
 
 // Fetch all products for the dashboard
-router.get('/admin/products', async (req: Request, res: Response) => {
+router.get('/admin/products', requireAdmin, async (req: Request, res: Response) => {
     try {
         const result = await query('SELECT * FROM products ORDER BY created_at DESC');
         res.json({ success: true, products: result.rows });
@@ -16,7 +16,7 @@ router.get('/admin/products', async (req: Request, res: Response) => {
 });
 
 // Delete a specific product
-router.delete('/admin/products/:id', async (req: Request, res: Response) => {
+router.delete('/admin/products/:id', requireAdmin, async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -29,7 +29,7 @@ router.delete('/admin/products/:id', async (req: Request, res: Response) => {
 });
 
 // Add a new product
-router.post('/admin/products', async (req: Request, res: Response) => {
+router.post('/admin/products', requireAdmin, async (req: Request, res: Response) => {
     const { name, sku, description, price, stock_quantity } = req.body;
 
     try {
@@ -47,7 +47,7 @@ router.post('/admin/products', async (req: Request, res: Response) => {
 });
 
 // Attach the product image url
-router.patch('/admin/products/:id/image', async (req: Request, res: Response) => {
+router.patch('/admin/products/:id/image', requireAdmin, async (req: Request, res: Response) => {
     const { id } = req.params;
     const { image_url } = req.body;
 
@@ -77,7 +77,7 @@ router.patch('/admin/products/:id/image', async (req: Request, res: Response) =>
 });
 
 // Fetch a single product for the edit form
-router.get('/admin/products/:id', async (req, res) => {
+router.get('/admin/products/:id', requireAdmin, async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -95,7 +95,7 @@ router.get('/admin/products/:id', async (req, res) => {
 });
 
 // Update an existing product
-router.put('/admin/products/:id', async (req: Request, res: Response) => {
+router.put('/admin/products/:id', requireAdmin, async (req: Request, res: Response) => {
     const { id } = req.params;
     const { name, description, price } = req.body;
 
@@ -150,7 +150,7 @@ router.get('/admin/stats', requireAdmin, async (req: Request, res: Response) => 
 });
 
 // GET /api/tickets/:id
-router.get('/admin/tickets/:id', async (req: Request, res: Response) => {
+router.get('/admin/tickets/:id', requireAdmin, async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
 
@@ -171,7 +171,7 @@ router.get('/admin/tickets/:id', async (req: Request, res: Response) => {
 });
 
 // PATCH /api/admin/tickets/:id/status
-router.patch('/admin/tickets/:id/status', async (req: Request, res: Response) => {
+router.patch('/admin/tickets/:id/status', requireAdmin, async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { status } = req.body;
@@ -195,7 +195,7 @@ router.patch('/admin/tickets/:id/status', async (req: Request, res: Response) =>
     }
 });
 
-router.get('/admin/tickets', async (req: Request, res: Response) => {
+router.get('/admin/tickets', requireAdmin, async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 1;
         const limit = parseInt(req.query.limit as string, 10) || 10; // Default to 10 tickets per page
@@ -230,7 +230,7 @@ router.get('/admin/tickets', async (req: Request, res: Response) => {
 });
 
 // POST /api/tickets
-router.post('/admin/tickets', async (req: Request, res: Response) => {
+router.post('/admin/tickets', requireAdmin, async (req: Request, res: Response) => {
     try {
         const{ name, email, subject, message } = req.body;
 
