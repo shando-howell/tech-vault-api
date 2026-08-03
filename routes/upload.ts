@@ -6,7 +6,7 @@ import { Readable } from 'stream';
 
 import router from './products';
 import { query } from '../db';
-import { requireAdminAPI } from '../middleware/requireAdminAPI';
+import { requireAdminAPI } from '../middleware/requireAdmin';
 
 // Configure Cloudinary
 cloudinary.config({

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-export const requireAdminAPI = async (req: Request & { auth?: any }, res: Response, next: NextFunction) => {
+export const requireAdmin = async (req: Request & { auth?: any }, res: Response, next: NextFunction) => {
     console.log("BOUNCER CHECK - req.auth exists?", !!req.auth);
     if (req.auth) {
         console.log("BOUNCER CHECK - Token data:", req.auth());

@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { requireAdminAPI } from '../middleware/requireAdminAPI';
+import { requireAdmin } from '../middleware/requireAdmin';
 import { query } from '../db';
 
 const router = Router();
@@ -114,7 +114,7 @@ router.put('/admin/products/:id', async (req: Request, res: Response) => {
     }
 });
 
-router.get('/admin/stats', async (req: Request, res: Response) => {
+router.get('/admin/stats', requireAdmin, async (req: Request, res: Response) => {
     try {
         // Fire all queries simultaneously for maximun performance
         const [revenueRes, ordersRes, stockRes, recentRes] = await Promise.all([
@@ -195,7 +195,7 @@ router.patch('/admin/tickets/:id/status', async (req: Request, res: Response) =>
     }
 });
 
-router.get('/admin/tickets', requireAdminAPI, async (req: Request, res: Response) => {
+router.get('/admin/tickets', async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string, 10) || 1;
         const limit = parseInt(req.query.limit as string, 10) || 10; // Default to 10 tickets per page
